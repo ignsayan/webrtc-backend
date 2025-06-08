@@ -1,50 +1,34 @@
-import { body } from 'express-validator';
 import parsePhoneNumberFromString from 'libphonenumber-js';
 import User from '../../models/User.js';
 
-const rule = [
+const registerRule = (req) => ({
 
-    body('first_name')
-        .trim()
-        .notEmpty().withMessage('First name is required').bail()
-        .isAlpha().withMessage('First name must contain only letters').bail(),
+    data: req.body,
+    rules: {
+        first_name: ['required', 'string'],
+        last_name: ['required', 'string'],
+        email: ['required', 'email', 'unique_email'],
+        phone: ['nullable', 'numeric', 'valid_phone', 'unique_phone'],
+        password: ['required', 'min:8', 'confirmed'],
+    },
+    customValidators: {
+        unique_email: async (email, attribute, req, passes) => {
+            const user = await User.findOne({ email });
+            if (user) return passes(false, 'Email already exists');
+            return passes();
+        },
+        valid_phone: async (phone, attribute, req, passes) => {
+            const number = parsePhoneNumberFromString(phone);
+            if (!number || !number.isValid()) return passes(false, 'Invalid phone number');
+            return passes();
+        },
+        unique_phone: async (phone, attribute, req, passes) => {
+            if (!phone) return passes();
+            const user = await User.findOne({ phone });
+            if (user) return passes(false, 'Phone already exists');
+            return passes();
+        },
+    }
+});
 
-    body('last_name')
-        .trim()
-        .notEmpty().withMessage('Last name is required').bail()
-        .isAlpha().withMessage('Last name must contain only letters').bail(),
-
-    body('email')
-        .normalizeEmail()
-        .isEmail().withMessage('Valid email is required').bail()
-        .custom(async (value) => {
-            const existing = await User.findOne({ email: value });
-            if (existing) throw new Error('Email already exists');
-            return true;
-        }),
-
-    body('phone')
-        .trim()
-        .optional({ checkFalsy: true })
-        .isNumeric().withMessage('Phone must be a number').bail()
-        .custom(async (value) => {
-            const number = parsePhoneNumberFromString(value);
-            if (!number || !number.isValid()) {
-                throw new Error('Phone must be a valid number with country code');
-            }
-            const existing = await User.findOne({ phone: value });
-            if (existing) throw new Error('Phone number already exists');
-            return true;
-        }),
-
-    body('password')
-        .notEmpty().withMessage('Password is required').bail()
-        .isLength({ min: 8 }).withMessage('Password must be at least 8 characters').bail(),
-
-    body('password_confirmation')
-        .notEmpty().withMessage('Confirm password is required').bail()
-        .custom((value, { req }) => value === req.body.password)
-        .withMessage('Password confirmation must match').bail(),
-];
-
-export default rule;
+export default registerRule;

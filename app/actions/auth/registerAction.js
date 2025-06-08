@@ -1,7 +1,6 @@
 import User from '../../models/User.js';
 import Role from '../../models/Role.js';
 import { ROLE } from '../../../configs/constants.js';
-import jwt from 'jsonwebtoken';
 
 const action = async (data) => {
 
@@ -24,10 +23,10 @@ const action = async (data) => {
         user.roles.push(role._id);
         await user.save();
 
-        await user.sendEmailVerification();
+        // await user.sendEmailVerification();
         const token = user.getAccessToken();
 
-        return { user, token };
+        return user;
     }
 };
 

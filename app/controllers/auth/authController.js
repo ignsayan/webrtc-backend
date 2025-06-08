@@ -6,10 +6,10 @@ import { getIoInstance } from '../../../configs/socketio.js';
 
 
 export const register = responseHandler(async (req) => {
-    const { user, token } = await registerAction(req.body);
+    const user = await registerAction(req.body);
     return {
         message: 'User created successfully',
-        data: { user, token }
+        data: { user }
     };
 });
 
