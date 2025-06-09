@@ -18,7 +18,7 @@ const parseFiles = (req) => {
     });
 };
 
-const validateRule = async (method, req) => {
+const validateRequest = async (method, req) => {
 
     await parseFiles(req);
     const {
@@ -42,4 +42,4 @@ const validateRule = async (method, req) => {
     });
 };
 
-export default validateRule;
+export default validateRequest;

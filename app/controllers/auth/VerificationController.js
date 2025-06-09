@@ -1,4 +1,4 @@
-import responseHandler from '../../services/responseHandler.js';
+import responseHandler from '../../utilities/responseHandler.js';
 import sendOtpAction from '../../actions/auth/sendOtpAction.js';
 import verifyOtpAction from '../../actions/auth/verifyOtpAction.js';
 

@@ -1,4 +1,4 @@
-import createAndStoreOtp from '../../services/createAndStoreOtp.js'
+import createAndStoreOtp from '../../utilities/createAndStoreOtp.js'
 import transporter from '../../../configs/nodemailer.js'
 import template from '../../../emails/verificationEmail.js'
 

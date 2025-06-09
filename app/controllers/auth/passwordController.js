@@ -1,5 +1,5 @@
-import responseHandler from '../../services/responseHandler.js';
-import validateRequest from '../../services/validateRequest.js';
+import responseHandler from '../../utilities/responseHandler.js';
+import validateRequest from '../../utilities/validateRequest.js';
 import forgotPasswordRule from '../../validations/auth/forgotPasswordRule.js';
 import forgotPasswordAction from '../../actions/auth/forgotPasswordAction.js';
 import resetPasswordRule from '../../validations/auth/resetPasswordRule.js';
