@@ -7,13 +7,6 @@ const userRule = (req) => ({
         password: ['required'],
         general: ['email_or_username_exclusive'],
     },
-    messages: {
-        'email.email': 'Invalid email format',
-        'username.regex': 'Username can only be alphanumeric',
-        'password.required': 'Password is required',
-        'general.email_or_username_exclusive': 'Provide either email or username, not both',
-        'general.required': 'Email or username is required',
-    },
     customValidators: {
         email_or_username_exclusive: async (_value, _attribute, req, passes) => {
             const { email, username } = req.body;

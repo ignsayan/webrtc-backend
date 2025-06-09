@@ -1,19 +1,28 @@
 import responseHandler from '../../services/responseHandler.js';
+import validateRequest from '../../services/validateRequest.js';
+import forgotPasswordRule from '../../validations/auth/forgotPasswordRule.js';
 import forgotPasswordAction from '../../actions/auth/forgotPasswordAction.js';
+import resetPasswordRule from '../../validations/auth/resetPasswordRule.js';
 import resetPasswordAction from '../../actions/auth/resetPasswordAction.js';
 
+class PasswordController {
 
-export const forgotPassword = responseHandler(async (req) => {
-    await forgotPasswordAction(req.body);
-    return {
-        message: 'Password reset email sent successfully',
-    };
-});
+    forgotPassword = responseHandler(async (req) => {
+        await validateRequest(forgotPasswordRule, req);
+        await forgotPasswordAction(req.body);
+        return {
+            message: 'Password reset email sent successfully',
+        };
+    });
 
-export const resetPassword = responseHandler(async (req) => {
-    const { user, token } = await resetPasswordAction(req.body);
-    return {
-        message: 'Password reset successfully',
-        data: { user, token }
-    };
-});
+    resetPassword = responseHandler(async (req) => {
+        await validateRequest(resetPasswordRule, req);
+        const { user, token } = await resetPasswordAction(req.body);
+        return {
+            message: 'Password reset successfully',
+            data: { user, token }
+        };
+    });
+}
+
+export default new PasswordController();

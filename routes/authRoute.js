@@ -1,28 +1,8 @@
 import { router, throttle } from '../app/middlewares/throttledRoutes.js';
-import {
-    register,
-    login,
-    googleAuth,
-    logout,
-} from '../app/controllers/auth/authController.js';
-import {
-    forgotPassword,
-    resetPassword,
-} from '../app/controllers/auth/passwordController.js';
-import {
-    verifyOtp,
-    sendOtp,
-} from '../app/controllers/auth/verifyController.js';
-
-// validation rules
-import validateRule from '../app/middlewares/validateRule.js';
-// import isAuthenticated from '../app/middlewares/isAuthenticated.js';
-import registerRule from '../app/validations/auth/registerRule.js';
-import loginRule from '../app/validations/auth/loginRule.js';
-// import forgotPasswordRule from '../app/validations/auth/forgotPasswordRule.js';
-// import resetPasswordRule from '../app/validations/auth/resetPasswordRule.js';
-// import sendOtpRule from '../app/validations/auth/sendOtpRule.js';
-// import verifyOtpRule from '../app/validations/auth/verifyOtpRule.js';
+import AuthController from '../app/controllers/auth/AuthController.js';
+import PasswordController from '../app/controllers/auth/PasswordController.js';
+import VerificationController from '../app/controllers/auth/VerificationController.js';
+import isAuthenticated from '../app/middlewares/isAuthenticated.js';
 
 
 const route = router();
@@ -30,34 +10,35 @@ const route = router();
 // registered routes
 route.post('/register',
     throttle(10, 30),
-    validateRule(registerRule, register)
+    AuthController.register
 );
 route.post('/login',
     throttle(5, 60),
-    validateRule(loginRule, login)
+    AuthController.login
 );
 route.post('/google',
     throttle(5, 60),
-    googleAuth
-)
-// route.post('/forgot-password',
-//     throttle(5, 30),
-//     validateRule(forgotPasswordRule, forgotPassword)
-// );
-// route.post('/reset-password',
-//     validateRule(resetPasswordRule, resetPassword)
-// );
-// route.post('/send-verification',
-//     throttle(5, 30),
-//     validateRule(sendOtpRule, sendOtp)
-// );
-// route.post('/verify',
-//     throttle(5, 30),
-//     validateRule(verifyOtpRule, verifyOtp)
-// );
-// route.post('/logout',
-//     isAuthenticated,
-//     logout
-// );
+    AuthController.googleAuth
+);
+route.post('/logout',
+    isAuthenticated,
+    AuthController.logout
+);
+route.post('/forgot-password',
+    throttle(5, 30),
+    PasswordController.forgotPassword
+);
+route.post('/reset-password',
+    throttle(5, 30),
+    PasswordController.resetPassword
+);
+route.post('/send-verification',
+    throttle(5, 30),
+    VerificationController.sendOtp
+);
+route.post('/verify',
+    throttle(5, 30),
+    VerificationController.verifyOtp
+);
 
 export default route;

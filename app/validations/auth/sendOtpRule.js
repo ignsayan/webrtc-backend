@@ -1,21 +1,23 @@
-import { body } from 'express-validator';
 import parsePhoneNumberFromString from 'libphonenumber-js';
 
-const rule = [
-
-    body('attribute')
-        .trim()
-        .notEmpty().withMessage('Email or phone is required').bail()
-        .custom((value, { req }) => {
+const sendOtpRule = (req) => ({
+    data: req.body,
+    rules: {
+        attribute: ['required', 'email_or_phone'],
+    },
+    customValidators: {
+        email_or_phone: function (value, attribute, req, passes) {
             const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
             const number = parsePhoneNumberFromString(value);
             const isPhone = number && number.isValid();
+
             if (!isEmail && !isPhone) {
-                throw new Error('Must be a valid email or phone number format');
+                return passes(false, 'Must be a valid email or phone number format');
             }
             req.body.channel = isEmail ? 'email' : 'phone';
-            return true;
-        }),
-];
+            return passes();
+        }
+    }
+});
 
-export default rule;
+export default sendOtpRule;

@@ -14,10 +14,12 @@ const action = async ({
         ].filter(Boolean)
     });
 
-    if (user.password === null) throw new Error('Invalid credentials');
-    const isPasswordValid = user ? await bcrypt.compare(password, user.password) : false;
+    if (!user || user.password === null) {
+        throw new Error('Invalid credentials');
+    }
 
-    if (!user || !isPasswordValid) {
+    const isValidPassword = user ? await bcrypt.compare(password, user.password) : false;
+    if (!user || !isValidPassword) {
         const error = new Error('Invalid credentials');
         error.status = 422;
         throw error;
