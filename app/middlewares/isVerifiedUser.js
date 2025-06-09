@@ -8,20 +8,20 @@ const hasVerified = (channel = null) => {
 
         if (channel === 'phone' && !user.hasVerifiedPhone()) {
             return res.status(403).json({
-                errors: 'You do not have verified phone number'
+                error: 'You do not have verified phone number'
             });
         };
 
         if (channel === 'email' && !user.hasVerifiedEmail()) {
             return res.status(403).json({
-                errors: 'You do not have verified email'
+                error: 'You do not have verified email'
             });
         };
 
         if (!channel) {
             if (!(user.hasVerifiedEmail() && user.hasVerifiedPhone())) {
                 return res.status(403).json({
-                    errors: 'Please complete the verification process'
+                    error: 'Please complete the verification process'
                 });
             };
         }

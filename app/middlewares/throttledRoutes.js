@@ -9,8 +9,8 @@ const throttle = (request, delay) => {
         standardHeaders: true,
         legacyHeaders: false,
         handler: (req, res) => {
-            const error = new Error('Too many requests, please try again later');
-            res.status(429).json({ errors: error.message });
+            const error = new Error('Too many requests');
+            res.status(429).json({ error: error.message });
         },
     });
 };
