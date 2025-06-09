@@ -12,7 +12,9 @@ const parseFiles = (req) => {
                 status: 422,
                 message: { files: [error.message] }
             });
-            if (req.files?.length > 0) req.body.files = req.files;
+            if (req.files?.length > 0) {
+                req.body.files = req.files;
+            }
             resolve();
         });
     });
@@ -28,7 +30,8 @@ const validateRequest = async (method, req) => {
         customValidators
     } = method(req);
 
-    const validation = new Validator(data, rules, messages);
+    const validation = new Validator(data, rules);
+
     if (customValidators) {
         for (const [name, fn] of Object.entries(customValidators)) {
             Validator.registerAsync(name, fn, `${name} validation failed`);
@@ -37,7 +40,18 @@ const validateRequest = async (method, req) => {
     return new Promise((resolve, reject) => {
         validation.checkAsync(
             () => resolve(),
-            () => reject({ status: 422, message: validation.errors.all() })
+            () => {
+                const errors = validation.errors.all();
+                const finalErrors = {};
+                for (const field in errors) {
+                    const customKey = Object.keys(messages || {}).find(key => key.startsWith(field + '.'));
+                    finalErrors[field] = customKey ? [messages[customKey]] : errors[field];
+                }
+                reject({
+                    status: 422,
+                    message: finalErrors
+                });
+            }
         );
     });
 };

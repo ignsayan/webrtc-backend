@@ -11,6 +11,10 @@ const registerRule = (req) => ({
         phone: ['nullable', 'numeric', 'valid_phone', 'unique_phone'],
         password: ['required', 'min:8', 'confirmed'],
     },
+    messages: {
+        'first_name.required': 'First name is required.',
+        'last_name.required': 'Last name is required.',
+    },
     customValidators: {
         unique_email: async (email, attribute, req, passes) => {
             const user = await User.findOne({ email });
