@@ -1,9 +1,11 @@
 import User from '../../models/User.js';
 import bcrypt from 'bcrypt';
 
-const action = async (data) => {
-
-    const { email, username, password } = data;
+const action = async ({
+    email,
+    username,
+    password,
+}) => {
 
     const user = await User.findOne({
         $or: [
@@ -12,6 +14,7 @@ const action = async (data) => {
         ].filter(Boolean)
     });
 
+    if (user.password === null) throw new Error('Invalid credentials');
     const isPasswordValid = user ? await bcrypt.compare(password, user.password) : false;
 
     if (!user || !isPasswordValid) {

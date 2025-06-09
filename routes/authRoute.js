@@ -2,6 +2,7 @@ import { router, throttle } from '../app/middlewares/throttledRoutes.js';
 import {
     register,
     login,
+    googleAuth,
     logout,
 } from '../app/controllers/auth/authController.js';
 import {
@@ -15,13 +16,13 @@ import {
 
 // validation rules
 import validateRule from '../app/middlewares/validateRule.js';
+// import isAuthenticated from '../app/middlewares/isAuthenticated.js';
 import registerRule from '../app/validations/auth/registerRule.js';
 import loginRule from '../app/validations/auth/loginRule.js';
 // import forgotPasswordRule from '../app/validations/auth/forgotPasswordRule.js';
 // import resetPasswordRule from '../app/validations/auth/resetPasswordRule.js';
 // import sendOtpRule from '../app/validations/auth/sendOtpRule.js';
 // import verifyOtpRule from '../app/validations/auth/verifyOtpRule.js';
-// import isAuthenticated from '../app/middlewares/isAuthenticated.js';
 
 
 const route = router();
@@ -35,6 +36,10 @@ route.post('/login',
     throttle(5, 60),
     validateRule(loginRule, login)
 );
+route.post('/google',
+    throttle(5, 60),
+    googleAuth
+)
 // route.post('/forgot-password',
 //     throttle(5, 30),
 //     validateRule(forgotPasswordRule, forgotPassword)

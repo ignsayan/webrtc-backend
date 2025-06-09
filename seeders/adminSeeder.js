@@ -9,14 +9,14 @@ export default async function adminSeeder() {
 
     if (!user) {
         user = await User.create({
-            first_name: 'Chini',
-            last_name: 'Dey',
-            username: 'beingchinidey',
-            email: 'ayandey166@gmail.com',
+            first_name: 'Super',
+            last_name: 'Admin',
+            username: 'superadmin',
+            email: 'superadmin@yopmail.com',
             phone: '9876543210',
             email_verified_at: new Date(),
             phone_verified_at: new Date(),
-            password: 'chini@sussi',
+            password: 'super@admin',
         });
     }
 

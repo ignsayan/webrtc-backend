@@ -30,7 +30,6 @@ const schema = new mongoose.Schema({
     },
     last_name: {
         type: String,
-        required: true,
     },
     username: {
         type: String,
@@ -51,7 +50,6 @@ const schema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true,
     },
     email_verified_at: {
         type: Date,
@@ -85,7 +83,7 @@ schema.pre(/^find/, function () {
 });
 
 schema.pre('save', async function (next) {
-    if (this.isModified('password')) {
+    if (this.isModified('password') && this.password) {
         this.password = await bcrypt.hash(this.password, 10);
     }
     next();

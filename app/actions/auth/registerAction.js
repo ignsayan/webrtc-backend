@@ -23,8 +23,7 @@ const action = async (data) => {
         user.roles.push(role._id);
         await user.save();
 
-        // await user.sendEmailVerification();
-        const token = user.getAccessToken();
+        await user.sendEmailVerification();
 
         return user;
     }
