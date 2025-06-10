@@ -7,11 +7,11 @@ const forgotPasswordRule = (req) => ({
     },
     customValidators: {
         email_exists: async (email, attribute, req, passes) => {
-            const existing = await User.findOne({ email });
-            if (!existing) {
+            const user = await User.findOne({ email });
+            if (!user) {
                 return passes(false, 'Email does not exist');
             }
-            req.body.user = existing;
+            req.body.user = user;
             return passes();
         },
     },

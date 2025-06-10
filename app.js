@@ -13,7 +13,7 @@ dotenv.config();
 await dbconnect();
 
 const app = express();
-const { server, io } = websocket(app);
+const { server } = websocket(app);
 
 app.use(corspolicy);
 app.use(express.urlencoded({ extended: true }));

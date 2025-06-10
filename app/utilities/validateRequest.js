@@ -34,7 +34,9 @@ const validateRequest = async (method, req) => {
 
     if (customValidators) {
         for (const [name, fn] of Object.entries(customValidators)) {
-            Validator.registerAsync(name, fn, `${name} validation failed`);
+            Validator.registerAsync(name,
+                (value, attribute, requirement, passes) => fn(value, attribute, req, passes)
+            );
         }
     }
     return new Promise((resolve, reject) => {
