@@ -13,7 +13,7 @@ export default async function adminSeeder() {
             last_name: 'Admin',
             username: 'superadmin',
             email: 'superadmin@yopmail.com',
-            phone: '9876543210',
+            phone: '+919876543210',
             email_verified_at: new Date(),
             phone_verified_at: new Date(),
             password: 'super@admin',

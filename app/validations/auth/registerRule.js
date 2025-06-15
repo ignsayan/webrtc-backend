@@ -8,7 +8,7 @@ const registerRule = (req) => ({
         first_name: ['required', 'string'],
         last_name: ['required', 'string'],
         email: ['required', 'email', 'unique_email'],
-        phone: ['nullable', 'numeric', 'valid_phone', 'unique_phone'],
+        phone: ['required', 'numeric', 'valid_phone', 'unique_phone'],
         password: ['required', 'min:8', 'confirmed'],
     },
     messages: {
