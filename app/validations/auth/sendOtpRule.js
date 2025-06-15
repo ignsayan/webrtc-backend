@@ -1,4 +1,5 @@
 import parsePhoneNumberFromString from 'libphonenumber-js';
+import { OTP } from '../../../configs/constants.js';
 
 const sendOtpRule = (req) => ({
     data: req.body,
@@ -14,7 +15,7 @@ const sendOtpRule = (req) => ({
             if (!isEmail && !isPhone) {
                 return passes(false, 'Must be a valid email or phone number format');
             }
-            req.body.channel = isEmail ? 'email' : 'phone';
+            req.body.channel = isEmail ? OTP.CHANNEL.EMAIL : OTP.CHANNEL.PHONE;
             return passes();
         }
     }

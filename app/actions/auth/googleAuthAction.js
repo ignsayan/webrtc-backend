@@ -1,5 +1,5 @@
 import User from '../../models/User.js';
-import { ROLE } from '../../../configs/constants.js';
+import { PROVIDER, ROLE } from '../../../configs/constants.js';
 import Role from '../../models/Role.js';
 
 const action = async ({
@@ -20,6 +20,7 @@ const action = async ({
             email,
             phone,
             password,
+            auth_provider: PROVIDER.GOOGLE,
         });
         const role = await Role.findOne({ name: ROLE.USER });
         user.roles.push(role._id);

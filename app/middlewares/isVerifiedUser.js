@@ -1,3 +1,4 @@
+import { OTP } from '../../configs/constants.js';
 import User from '../models/User.js';
 
 const hasVerified = (channel = null) => {
@@ -6,13 +7,13 @@ const hasVerified = (channel = null) => {
 
         const user = await User.findById(req.user.id);
 
-        if (channel === 'phone' && !user.hasVerifiedPhone()) {
+        if (channel === OTP.CHANNEL.PHONE && !user.hasVerifiedPhone()) {
             return res.status(403).json({
                 error: 'You do not have verified phone number'
             });
         };
 
-        if (channel === 'email' && !user.hasVerifiedEmail()) {
+        if (channel === OTP.CHANNEL.EMAIL && !user.hasVerifiedEmail()) {
             return res.status(403).json({
                 error: 'You do not have verified email'
             });

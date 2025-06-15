@@ -1,5 +1,6 @@
 import slugify from 'slugify';
 
+// Constants for roles & permissions
 const roles = {
     ADMIN: 'admin',
     USER: 'user',
@@ -23,6 +24,7 @@ export const PERMISSION = Object.fromEntries(
     ])
 );
 
+// Constants for media
 const media = {
     type: {
         GENERAL: 'general',
@@ -36,4 +38,21 @@ export const MEDIA = {
             key, slugify(value, { lower: true })
         ])
     ),
+};
+
+// Constants for otp
+export const OTP = {
+    CHANNEL: {
+        EMAIL: 'email',
+        PHONE: 'phone',
+    },
+    EXPIRY: 10 * 60 * 1000,
+};
+
+// Constants for provider
+export const PROVIDER = {
+    LOCAL: 'local',
+    GOOGLE: 'google',
+    FACEBOOK: 'facebook',
+    GITHUB: 'github',
 };

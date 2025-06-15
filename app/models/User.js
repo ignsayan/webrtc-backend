@@ -6,6 +6,7 @@ import Role from './Role.js';
 import emailVerification from './plugins/emailVerification.js';
 import phoneVerification from './plugins/phoneVerification.js';
 import tokenGenerator from './plugins/tokenGenerator.js';
+import { PROVIDER } from '../../configs/constants.js';
 
 const transform = (doc, rec) => {
     delete rec.password;
@@ -36,6 +37,10 @@ const schema = new mongoose.Schema({
         required: true,
         unique: true,
     },
+    avatar: {
+        type: String,
+        default: null,
+    },
     email: {
         type: String,
         index: true,
@@ -58,6 +63,10 @@ const schema = new mongoose.Schema({
     phone_verified_at: {
         type: Date,
         default: null,
+    },
+    auth_provider: {
+        type: String,
+        default: PROVIDER.LOCAL,
     },
     remember_token: {
         type: String,

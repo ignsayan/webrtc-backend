@@ -1,5 +1,6 @@
 import User from '../../models/User.js';
 import OTP from '../../models/OTP.js';
+import { OTP as OTP_CONST } from '../../../configs/constants.js';
 
 const action = async (data) => {
 
@@ -11,8 +12,8 @@ const action = async (data) => {
     const user = await User.findOne({ _id: otp.user });
     if (!user) throw new Error('No user found');
 
-    if (channel === 'email') await user.markEmailAsVerified();
-    if (channel === 'phone') await user.markPhoneAsVerified();
+    if (channel === OTP_CONST.CHANNEL.EMAIL) await user.markEmailAsVerified();
+    if (channel === OTP_CONST.CHANNEL.PHONE) await user.markPhoneAsVerified();
 
     await otp.deleteOne();
     return user;
