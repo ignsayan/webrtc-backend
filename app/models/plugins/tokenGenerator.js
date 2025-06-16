@@ -6,7 +6,7 @@ const tokenGenerator = (schema) => {
         const token = jwt.sign(
             { id: this._id },
             process.env.JWT_SECRET,
-            { expiresIn: '3h' }
+            // { expiresIn: '3h' }
         );
         return token;
     };
