@@ -6,19 +6,19 @@ const emailVerification = (schema) => {
 
     schema.methods.sendEmailVerification = async function () {
         const otp = await createAndStoreOtp(this, 'email');
-        if (otp) {
-            const data = {
-                name: this.first_name,
-                code: otp.code.toString(),
-                time: otp.expiry
-            }
-            await transporter.sendMail({
-                from: process.env.MAIL_FROM,
-                to: this.email,
-                subject: 'Email Verification',
-                html: template(data),
-            });
-        }
+        // if (otp) {
+        //     const data = {
+        //         name: this.first_name,
+        //         code: otp.code.toString(),
+        //         time: otp.expiry
+        //     }
+        //     await transporter.sendMail({
+        //         from: process.env.MAIL_FROM,
+        //         to: this.email,
+        //         subject: 'Email Verification',
+        //         html: template(data),
+        //     });
+        // }
     };
 
     schema.methods.hasVerifiedEmail = function () {

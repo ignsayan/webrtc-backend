@@ -1,4 +1,5 @@
-const verifyOtpRule = (req) => ({
+const rule = (req) => ({
+    
     data: req.body,
     rules: {
         code: ['required', 'numeric'],
@@ -6,4 +7,4 @@ const verifyOtpRule = (req) => ({
     },
 });
 
-export default verifyOtpRule;
+export default rule;

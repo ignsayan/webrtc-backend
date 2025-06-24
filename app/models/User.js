@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
-import bcrypt from 'bcrypt';
 import Permission from './Permission.js';
 import Role from './Role.js';
 import emailVerification from './plugins/emailVerification.js';
 import phoneVerification from './plugins/phoneVerification.js';
 import tokenGenerator from './plugins/tokenGenerator.js';
 import { PROVIDER } from '../../configs/constants.js';
+import bcrypt from 'bcrypt';
 
 const transform = (doc, rec) => {
     delete rec.password;

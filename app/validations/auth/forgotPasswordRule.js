@@ -1,6 +1,7 @@
 import User from '../../models/User.js';
 
-const forgotPasswordRule = (req) => ({
+const rule = (req) => ({
+    
     data: req.body,
     rules: {
         email: ['required', 'email', 'email_exists'],
@@ -17,4 +18,4 @@ const forgotPasswordRule = (req) => ({
     },
 });
 
-export default forgotPasswordRule;
+export default rule;

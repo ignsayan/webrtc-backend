@@ -34,12 +34,12 @@ const action = async (data) => {
         time: passwordReset.expiry
     };
 
-    await transporter.sendMail({
-        from: process.env.MAIL_FROM,
-        to: email,
-        subject: 'Password Reset',
-        html: template(raw),
-    });
+    // await transporter.sendMail({
+    //     from: process.env.MAIL_FROM,
+    //     to: email,
+    //     subject: 'Password Reset',
+    //     html: template(raw),
+    // });
 };
 
 export default action;

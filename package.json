@@ -6,7 +6,6 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "ui": "cd ../frontend && npm run dev",
     "seed": "node ./seeders/dbSeeder.js"
   },
   "author": "",

@@ -6,6 +6,7 @@ import corspolicy from './configs/cors.js';
 import isAuthenticated from './app/middlewares/isAuthenticated.js';
 import hasRole from './app/middlewares/hasRole.js';
 import authRoute from './routes/authRoute.js';
+import chatRoute from './routes/chatRoute.js';
 import webRoute from './routes/webRoute.js';
 
 
@@ -22,6 +23,7 @@ app.use(express.json());
 // guest routes
 app.use('/', webRoute);
 app.use('/api/auth', authRoute);
+app.use('/api/chat', chatRoute);
 
 // authenticated routes
 app.use(isAuthenticated);

@@ -1,4 +1,5 @@
-const resetPasswordRule = (req) => ({
+const rule = (req) => ({
+    
     data: req.body,
     rules: {
         token: ['required'],
@@ -7,4 +8,4 @@ const resetPasswordRule = (req) => ({
     },
 });
 
-export default resetPasswordRule;
+export default rule;

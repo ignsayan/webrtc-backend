@@ -5,11 +5,11 @@ const phoneVerification = (schema) => {
 
     schema.methods.sendPhoneVerification = async function () {
         const otp = await createAndStoreOtp(this, 'phone');
-        if (otp) {
-            const number = this.phone;
-            const body = `Your verification code is ${otp.code}`;
-            await twilioclient.send({ number, body });
-        }
+        // if (otp) {
+        //     const number = this.phone;
+        //     const body = `Your verification code is ${otp.code}`;
+        //     await twilioclient.send({ number, body });
+        // }
     };
 
     schema.methods.hasVerifiedPhone = function () {

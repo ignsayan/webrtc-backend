@@ -6,7 +6,7 @@ const action = async ({
     first_name,
     last_name,
     email,
-    phone,
+    phone = null,
     password = null,
 }) => {
 

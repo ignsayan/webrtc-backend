@@ -1,7 +1,8 @@
 import parsePhoneNumberFromString from 'libphonenumber-js';
 import { OTP } from '../../../configs/constants.js';
 
-const sendOtpRule = (req) => ({
+const rule = (req) => ({
+    
     data: req.body,
     rules: {
         attribute: ['required', 'email_or_phone'],
@@ -21,4 +22,4 @@ const sendOtpRule = (req) => ({
     }
 });
 
-export default sendOtpRule;
+export default rule;

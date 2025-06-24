@@ -1,4 +1,4 @@
-const userRule = (req) => ({
+const rule = (req) => ({
 
     data: req.body,
     rules: {
@@ -21,4 +21,4 @@ const userRule = (req) => ({
     }
 });
 
-export default userRule;
+export default rule;

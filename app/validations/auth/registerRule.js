@@ -1,7 +1,7 @@
 import parsePhoneNumberFromString from 'libphonenumber-js';
 import User from '../../models/User.js';
 
-const registerRule = (req) => ({
+const rule = (req) => ({
 
     data: req.body,
     rules: {
@@ -35,4 +35,4 @@ const registerRule = (req) => ({
     }
 });
 
-export default registerRule;
+export default rule;
