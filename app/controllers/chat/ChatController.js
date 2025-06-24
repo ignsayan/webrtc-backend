@@ -20,9 +20,10 @@ class ChatController {
     })
 
     sendMessage = responseHandler(async (req) => {
-        await sendMessageAction(req);
+        const message = await sendMessageAction(req);
         return {
-            message: 'Message sent successfully'
+            message: 'Message sent successfully',
+            data: { message }
         };
     })
 }

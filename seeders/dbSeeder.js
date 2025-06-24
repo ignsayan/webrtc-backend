@@ -7,7 +7,7 @@ import adminSeeder from './adminSeeder.js'
     await dbconnect();
 
     await rolePermissionSeeder();
-    await adminSeeder();
+    // await adminSeeder();
 
     process.exit(0);
 

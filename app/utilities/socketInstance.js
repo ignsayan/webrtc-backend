@@ -1,6 +1,7 @@
+import registerSocketEvents from './registerSocketEvents.js';
+import { policy } from '../../configs/cors.js';
 import { Server } from 'socket.io';
 import http from 'http';
-import { policy } from './cors.js';
 
 let io;
 
@@ -9,12 +10,17 @@ const websocket = (app) => {
     io = new Server(server, {
         cors: policy,
     });
+
+    io.on('connection', (socket) => {
+        registerSocketEvents(socket);
+    });
+
     return { server, io };
 }
 
-const getIoInstance = () => {
+const getSocketInstance = () => {
     if (!io) throw new Error('Socket.io not initialized');
     return io;
 }
 
-export { websocket, getIoInstance };
+export { websocket, getSocketInstance };
