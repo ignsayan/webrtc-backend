@@ -8,8 +8,11 @@ const route = router();
 route.get('/contacts',
     ChatController.getContactList
 );
-route.get('/room',
-    ChatController.getChatroom
+route.post('/room',
+    ChatController.generateRoom
+);
+route.get('/inbox',
+    ChatController.getInboxDetail
 );
 route.post('/send-message',
     ChatController.sendMessage

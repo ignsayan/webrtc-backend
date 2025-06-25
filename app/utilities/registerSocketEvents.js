@@ -1,6 +1,7 @@
 const registerSocketEvents = (socket) => {
 
-    socket.on('chatroom', (chatroom) => {
+    socket.on('join:chatroom', (chatroom) => {
+        socket.leaveAll();
         socket.join(chatroom);
     });
 

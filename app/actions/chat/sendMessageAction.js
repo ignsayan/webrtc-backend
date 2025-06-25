@@ -4,17 +4,10 @@ import Message from '../../models/Message.js';
 
 const action = async ({ body }) => {
 
-    let { sender, receiver, content, chatroom } = body;
+    const { chatroom, sender, content } = body;
 
-    if (!receiver) throw new Error('Receiver id not present');
-    if (!sender) throw new Error('Sender id not present');
-
-    const participants = [sender, receiver];
-
-    if (!chatroom) {
-        const result = await Chatroom.create({ participants });
-        chatroom = result._id.toString();
-    }
+    if (!chatroom) throw new Error('Chatroom not present');
+    if (!sender) throw new Error('Sender not present');
 
     const message = await Message.create({
         chatroom,
@@ -22,8 +15,8 @@ const action = async ({ body }) => {
         content,
     });
 
-    const socket = getSocketInstance();
-    socket.to(chatroom).emit('message', message);
+    const io = getSocketInstance();
+    io.to(chatroom).emit('listen:message', message);
 
     return message;
 };
