@@ -5,8 +5,11 @@ import ChatController from '../app/controllers/chat/ChatController.js';
 const route = router();
 
 // registered routes
-route.get('/contacts',
-    ChatController.getContactList
+route.get('/recent',
+    ChatController.getRecentChats
+);
+route.get('/search-users',
+    ChatController.searchUsers,
 );
 route.post('/room',
     ChatController.generateRoom
