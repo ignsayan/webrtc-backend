@@ -5,8 +5,14 @@ const registerSocketEvents = (socket) => {
         socket.join(chatroom);
     });
 
-    socket.on('typing', ({ chatroom, user }) => {
-        socket.to(chatroom).emit('typing...', user);
+    socket.on('start:typing', ({ chatroom, user, typing }) => {
+        socket.to(chatroom).emit('start:typing', {
+            user, typing
+        });
+    });
+
+    socket.on('stop:typing', (chatroom) => {
+        socket.to(chatroom).emit('stop:typing');
     });
 
     socket.on('disconnect', () => {
