@@ -13,7 +13,7 @@ const schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }],
-    lastMessage: {
+    last_message: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Message'
     },

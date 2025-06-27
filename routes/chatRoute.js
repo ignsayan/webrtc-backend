@@ -5,7 +5,7 @@ import ChatController from '../app/controllers/chat/ChatController.js';
 const route = router();
 
 // registered routes
-route.get('/recent',
+route.get('/recents',
     ChatController.getRecentChats
 );
 route.get('/search-users',

@@ -8,8 +8,8 @@ import sendMessageAction from '../../actions/chat/sendMessageAction.js';
 class ChatController {
 
     getRecentChats = responseHandler(async (req) => {
-        const contacts = await getRecentChatsAction(req);
-        return { data: { contacts } };
+        const recents = await getRecentChatsAction(req);
+        return { data: { recents } };
     });
 
     searchUsers = responseHandler(async (req) => {
