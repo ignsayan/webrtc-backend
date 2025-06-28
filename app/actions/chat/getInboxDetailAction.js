@@ -27,11 +27,9 @@ const action = async ({ query }) => {
 
     let receiver = null;
 
-    if (!room.isGroup) {
-        receiver = room.participants.find(
-            (participant) => participant._id.toString() !== sender
-        );
-    }
+    receiver = room.participants.find(
+        (participant) => participant._id.toString() !== sender
+    );
 
     return { receiver, messages };
 };
